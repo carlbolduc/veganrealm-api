@@ -10,13 +10,15 @@ import java.util.List;
 public class Recipe {
 
     private int id;
+    private String author;
     private String imageLink;
     private String[] ingredients;
     private String link;
     private String title;
 
-    public Recipe(int id, String title, String link, String imageLink, String joinedIngredients) {
+    public Recipe(int id, String author, String title, String link, String imageLink, String joinedIngredients) {
         this.id = id;
+        this.author = author;
         this.title = title;
         this.link = link;
         this.imageLink = imageLink;
@@ -25,6 +27,10 @@ public class Recipe {
 
     public int getId() {
         return id;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public String getImageLink() {

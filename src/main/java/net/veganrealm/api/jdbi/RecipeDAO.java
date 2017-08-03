@@ -14,7 +14,7 @@ import java.util.List;
 @RegisterMapper(RecipeMapper.class)
 public interface RecipeDAO {
 
-    @SqlQuery("SELECT id, title, link, image_link, ingredients FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
+    @SqlQuery("SELECT id, author, title, link, image_link, ingredients FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
     List<Recipe> findAllRecipes(@Bind("keyword") String keyword);
 
 }
