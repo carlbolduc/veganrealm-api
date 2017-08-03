@@ -36,6 +36,10 @@ run {
     args "server", "./src/dist/config/veganrealm.yml"
 }
 
+dbMigrate {
+    args "db", "migrate", "./src/dist/config/veganrealm.yml"
+}
+
 jar.finalizedBy shadowJar
 
 shadowJar {
