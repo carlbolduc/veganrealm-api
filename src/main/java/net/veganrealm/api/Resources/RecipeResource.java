@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,10 +25,14 @@ public class RecipeResource {
     }
 
     @GET
+    public List<Recipe> getRecipes() {
+        return new ArrayList<>();
+    }
+
+    @GET
     @Path("/{keyword}")
     public List<Recipe> getRecipes(@PathParam("keyword") String keyword) {
-        List<Recipe> recipes = recipeDAO.findAllRecipes(keyword);
-        return recipes;
+        return recipeDAO.findAllRecipes(keyword);
     }
 
 }

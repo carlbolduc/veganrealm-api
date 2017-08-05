@@ -2,6 +2,7 @@ package net.veganrealm.api;
 
 import de.thomaskrille.dropwizard_template_config.TemplateConfigBundle;
 import net.veganrealm.api.Resources.RecipeResource;
+import net.veganrealm.api.Resources.StatisticsResource;
 import net.veganrealm.api.jdbi.RecipeDAO;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
@@ -51,6 +52,7 @@ public class VeganRealmApplication extends io.dropwizard.Application<VeganRealmC
         setupCors(environment);
 
         environment.jersey().register(new RecipeResource(recipeDAO));
+        environment.jersey().register(new StatisticsResource(recipeDAO));
     }
 
     private void setupCors(Environment environment) {

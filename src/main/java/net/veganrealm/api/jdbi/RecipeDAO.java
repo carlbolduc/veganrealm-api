@@ -17,4 +17,7 @@ public interface RecipeDAO {
     @SqlQuery("SELECT id, author, title, link, image_link, ingredients FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
     List<Recipe> findAllRecipes(@Bind("keyword") String keyword);
 
+    @SqlQuery("SELECT COUNT(*) FROM recipes")
+    int countAllRecipes();
+
 }
