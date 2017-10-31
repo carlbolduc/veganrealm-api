@@ -1,0 +1,15 @@
+[Unit]
+Description=Vegan Realm API
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/environment
+Type=simple
+User=carl
+WorkingDirectory=/home/carl/veganrealm-api
+ExecStart=/bin/bash -lc 'DB_HOST=${DB_HOST} DB_USER=${DB_USER} DB_PASSWORD=${DB_PASSWORD} java -jar build/libs/veganrealm-api-0.1-all.jar server src/dist/config/veganrealm.yml'
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
