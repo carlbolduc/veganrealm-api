@@ -37,4 +37,12 @@
 
     </changeSet>
 
+    <changeSet id="2" author="carlbolduc">
+        <addColumn catalogName="veganrealm" schemaName="public" tableName="recipes">
+            <column name="published_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
