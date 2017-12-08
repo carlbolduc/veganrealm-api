@@ -35,4 +35,10 @@ public class RecipeResource {
         return recipeDAO.findAllRecipes(keyword);
     }
 
+    @GET
+    @Path("/date/{keyword}")
+    public List<Recipe> getRecipesSortedByDate(@PathParam("keyword") String keyword) {
+        return recipeDAO.findAllRecipesSortedByDate(keyword);
+    }
+
 }

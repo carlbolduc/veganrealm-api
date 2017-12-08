@@ -14,8 +14,11 @@ import java.util.List;
 @RegisterMapper(RecipeMapper.class)
 public interface RecipeDAO {
 
-    @SqlQuery("SELECT id, author, title, link, image_link, ingredients FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
+    @SqlQuery("SELECT id, author, title, link, image_link, ingredients, published_at FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
     List<Recipe> findAllRecipes(@Bind("keyword") String keyword);
+
+    @SqlQuery("SELECT id, author, title, link, image_link, ingredients, published_at FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword) ORDER BY published_at DESC")
+    List<Recipe> findAllRecipesSortedByDate(@Bind("keyword") String keyword);
 
     @SqlQuery("SELECT COUNT(*) FROM recipes")
     int countAllRecipes();
