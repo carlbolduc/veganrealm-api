@@ -1,7 +1,7 @@
-dataSourceFactory:
+database:
   driverClass: org.postgresql.Driver
   user: ${DB_USER!'postgres'}
   password: ${DB_PASSWORD!'foobar'}
-  url: jdbc:postgresql://${DB_HOST!'localhost/veganrealm'}
+  url: jdbc:postgresql://${DB_HOST!'localhost:5433/veganrealm'}
   properties:
     charSet: UTF-8

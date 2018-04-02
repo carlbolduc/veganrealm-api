@@ -1,18 +1,26 @@
 package net.veganrealm.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class VeganRealmConfiguration extends Configuration {
 
-    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 
+    @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
-        return dataSourceFactory;
+        return database;
     }
 
-    public void setDataSourceFactory(DataSourceFactory dataSourceFactory) {
-        this.dataSourceFactory = dataSourceFactory;
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory) {
+        this.database = factory;
     }
 
 }

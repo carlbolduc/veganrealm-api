@@ -1,18 +1,19 @@
 package net.veganrealm.api;
 
 import de.thomaskrille.dropwizard_template_config.TemplateConfigBundle;
+import io.dropwizard.jdbi3.JdbiFactory;
+import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
 import net.veganrealm.api.Resources.RecipeResource;
 import net.veganrealm.api.Resources.StatisticsResource;
 import net.veganrealm.api.jdbi.RecipeDAO;
 import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.jdbi.OptionalContainerFactory;
-import io.dropwizard.jdbi.bundles.DBIExceptionsBundle;
+
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -28,25 +29,23 @@ public class VeganRealmApplication extends io.dropwizard.Application<VeganRealmC
     public void initialize(Bootstrap<VeganRealmConfiguration> bootstrap) {
 
         // Makes Dropwwizard unwrap JDBI exceptions are return intelligent values to clients
-        bootstrap.addBundle(new DBIExceptionsBundle());
+        bootstrap.addBundle(new JdbiExceptionsBundle());
 
         // Support templates inside the config files
         bootstrap.addBundle(new TemplateConfigBundle());
 
         bootstrap.addBundle(new MigrationsBundle<VeganRealmConfiguration>() {
             @Override
-            public DataSourceFactory getDataSourceFactory(VeganRealmConfiguration configuration) {
-                return configuration.getDataSourceFactory();
+            public DataSourceFactory getDataSourceFactory(VeganRealmConfiguration config) {
+                return config.getDataSourceFactory();
             }
         });
     }
 
     @Override
-    public void run(VeganRealmConfiguration configuration, Environment environment) throws Exception {
-        final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-        jdbi.registerContainerFactory(new OptionalContainerFactory());
-
+    public void run(VeganRealmConfiguration config, Environment environment) throws Exception {
+        final JdbiFactory factory = new JdbiFactory();
+        final Jdbi jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
         final RecipeDAO recipeDAO = jdbi.onDemand(RecipeDAO.class);
 
         setupCors(environment);
