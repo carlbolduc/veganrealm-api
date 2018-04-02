@@ -10,47 +10,66 @@ public class Recipe {
     private int id;
     private String author;
     private String imageLink;
-    private String[] ingredients;
+    private String ingredients;
     private String link;
     private String title;
     private Timestamp publishedAt;
 
-    public Recipe(int id, String author, String title, String link, String imageLink, String joinedIngredients, Timestamp publishedAt) {
-        this.id = id;
-        this.author = author;
-        this.title = title;
-        this.link = link;
-        this.imageLink = imageLink;
-        this.ingredients = joinedIngredients.split("\\|");
-        this.publishedAt = publishedAt;
-    }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAuthor() {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getImageLink() {
         return imageLink;
     }
 
-    public String[] getIngredients() {
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getLink() {
         return link;
     }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Timestamp getPublishedAt() {
         return publishedAt;
+    }
+
+    public void setPublishedAt(Timestamp publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
 }
