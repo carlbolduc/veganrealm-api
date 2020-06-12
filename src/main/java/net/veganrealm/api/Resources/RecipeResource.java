@@ -39,9 +39,11 @@ public class RecipeResource {
         results.setRecipes(recipeDAO.findAllRecipes(keyword));
         List<Integer> ids = results.getRecipes().stream().map(Recipe::getId).collect(Collectors.toList());
         List<Facet> facets = new ArrayList<>();
-        Facet authorFacet = new Facet("author");
-        authorFacet.setFacetValues(recipeDAO.listAuthorFacetValues(ids));
-        facets.add(authorFacet);
+        if (!ids.isEmpty()) {
+            Facet authorFacet = new Facet("author");
+            authorFacet.setFacetValues(recipeDAO.listAuthorFacetValues(ids));
+            facets.add(authorFacet);
+        }
         results.setFacets(facets);
         return results;
     }
