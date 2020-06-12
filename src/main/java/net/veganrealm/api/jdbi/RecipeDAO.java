@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface RecipeDAO {
 
-    @SqlQuery("SELECT id, author, title, link, image_link, ingredients, published_at FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword)")
+    @SqlQuery("SELECT id, author, title, link, image_link, ingredients, published_at FROM recipes WHERE weighted_tsv @@ plainto_tsquery(:keyword) ORDER BY ts_rank(weighted_tsv, plainto_tsquery(:keyword)) DESC, id DESC")
     @RegisterBeanMapper(Recipe.class)
     List<Recipe> findAllRecipes(@Bind("keyword") String keyword);
 
